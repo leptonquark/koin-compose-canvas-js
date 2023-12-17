@@ -13,27 +13,35 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.CanvasBasedWindow
+import app.di.ClientModule
 import org.jetbrains.skiko.wasm.onWasmReady
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
+import org.koin.compose.KoinApplication
+import org.koin.compose.koinInject
+import org.koin.ksp.generated.module
 
 @OptIn(ExperimentalComposeUiApi::class)
-class QuoteScreen: KoinComponent {
-    private val quoteViewModel: QuoteViewModel by inject()
+class QuoteScreen {
 
     fun initialize() {
         onWasmReady {
             CanvasBasedWindow {
-                val state by quoteViewModel.state.collectAsState()
-                    QuoteScreen(state.quote)
+                MainScreen()
             }
         }
     }
 }
 
 @Composable
-fun QuoteScreen(quote: String){
-    Box(modifier = Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
-        Text(quote, style = MaterialTheme.typography.headlineLarge)
+fun MainScreen() {
+    KoinApplication(moduleList = { listOf(ClientModule().module) }) {
+        Box(modifier = Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
+            QuoteScreen()
+        }
     }
+}
+
+@Composable
+fun QuoteScreen(viewModel: QuoteViewModel = koinInject()) {
+    val state by viewModel.state.collectAsState()
+    Text(state.quote, style = MaterialTheme.typography.headlineLarge)
 }
