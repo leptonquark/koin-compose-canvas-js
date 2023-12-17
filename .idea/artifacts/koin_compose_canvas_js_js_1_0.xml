@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="koin-compose-canvas-js-js-1.0">
+    <output-path>$PROJECT_DIR$/build/libs</output-path>
+    <root id="archive" name="koin-compose-canvas-js-js-1.0.jar">
+      <element id="module-output" name="koin-compose-canvas-js.jsMain" />
+    </root>
+  </artifact>
+</component>
