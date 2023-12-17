@@ -50,6 +50,7 @@ kotlin{
                 api("io.insert-koin:koin-core:3.4.3")
                 api("io.insert-koin:koin-test:3.4.3")
                 api("io.insert-koin:koin-annotations:1.3.0")
+                api("io.insert-koin:koin-compose:1.1.0")
             }
         }
     }
